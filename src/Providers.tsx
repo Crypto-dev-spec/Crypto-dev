@@ -4,11 +4,15 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { createConfig, http, WagmiProvider } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
+import { metaMask } from 'wagmi/connectors';
 import { store } from './store/store';
 
 const queryClient = new QueryClient();
 
 export const config = createConfig({
+  ssr: false,
+  multiInjectedProviderDiscovery: false,
+  connectors: [metaMask()],
   chains: [mainnet, sepolia],
   transports: {
     [mainnet.id]: http(),
