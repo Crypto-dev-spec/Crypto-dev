@@ -2,8 +2,8 @@ import { Alert, AlertTitle, Box, Snackbar } from '@mui/material';
 import { type ConnectErrorType } from '@wagmi/core';
 import { ComponentProps, useState } from 'react';
 import { useAccount, useConnect } from 'wagmi';
-
-const formatAddress = (address: string) => address.slice(0, 6) + '...' + address.slice(-4);
+import { WalletDialog } from './WalletDialog';
+import { formatAddress } from './utils';
 
 const Button = ({ sx, ...props }: ComponentProps<typeof Box> & { href?: string; target?: string }) => {
   return (
@@ -73,7 +73,13 @@ export const WalletButton = () => {
       return <Button>Connecting...</Button>;
     }
 
-    return <Button>{formatAddress(account.address)}</Button>;
+    return (
+      <Box sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 2, width: '324px' }}>
+        <Button style={{ width: 'auto', flex: '1 1 auto' }}>{formatAddress(account.address)}</Button>
+
+        <WalletDialog />
+      </Box>
+    );
   };
 
   return (
